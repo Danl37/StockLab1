@@ -54,11 +54,11 @@ namespace Stock {
             var rand = new Random();
             CurrentValue += rand.Next(-MaxChange, MaxChange);
             NumChanges++;
-            //if ((CurrentValue - InitialValue) > Threshold)
-            //{
+            if ((CurrentValue - InitialValue) > Threshold)
+            {
                 StockNotification a = new StockNotification(this.StockName, this.CurrentValue, this.NumChanges);
                 StockEvent(this, a);
-            //}
+            }
         }
     }
 }
