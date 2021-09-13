@@ -30,8 +30,8 @@ namespace Stock {
         public void AddStock(Stock stock)
         {
             stocks.Add(stock);
-            stock.StockEvent += new ;
-            }
+            stock.StockEvent += new EventHandler<StockNotification>(EventHandler);
+        }
 
         /// <summary>
         /// The eventhandler that raises the event of a change
