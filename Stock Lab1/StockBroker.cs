@@ -9,7 +9,7 @@ namespace Stock {
     {
         public string BrokerName { get; set; }
         public List<Stock> stocks = new List<Stock>();
-        public static System.Threading.ReaderWriterLockSlim myLock = new ReaderWriterLockSlim();
+        //public static System.Threading.ReaderWriterLockSlim myLock = new ReaderWriterLockSlim();
         readonly string docPath = @"C:\Users\Documents\CECS 475\Lab3_output.txt";
         public string titles = "Broker".PadRight(10) + "Stock".PadRight(15) +
        "Value".PadRight(10) + "Changes".PadRight(10) + "Date and Time";
@@ -40,12 +40,11 @@ namespace Stock {
         /// <param name="e">Event arguments</param>
         void EventHandler(Object sender, EventArgs e)
         {
-            try
-            {
-                Stock newStock = (Stock)sender;
-                string statement;
-
-            }
+            // This method can also possibly handle writing to the file, since its the same information?
+            Stock evStock = (Stock)sender;
+            StockNotification data = (StockNotification)e;
+            String statement = data.StockName + data.CurrentValue + data.NumChanges;
+            Console.WriteLine(statement);
         }
     }
 }
