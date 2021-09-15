@@ -28,6 +28,8 @@ namespace Stock
             b4.AddStock(stock2);
             b4.AddStock(stock3);
             b4.AddStock(stock4);
+
+            Console.ReadKey();
         }
     }
 }

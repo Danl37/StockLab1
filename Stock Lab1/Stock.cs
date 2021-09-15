@@ -16,6 +16,8 @@ namespace Stock {
         public int Threshold { get; set; }
         public int NumChanges { get; set; }
 
+        private Thread stockThread;
+
         /// <summary>
         /// Stock class that contains all the information and changes of the stock
         /// </summary>
@@ -31,16 +33,18 @@ namespace Stock {
             this.MaxChange = maxChange;
             this.Threshold = threshold;
 
-            this.CreateThread();
+            this.StartThread();
         }
         
-        public void CreateThread()
+        public void StartThread()
         {
-            Console.WriteLine("Starting Thread");
-            ThreadStart stockRef = new ThreadStart(this.Activate);
-            Thread stockThread = new Thread(stockRef);
+            ThreadStart stockRef = new ThreadStart(Activate);
+            stockThread = new Thread(stockRef);
             stockThread.Start();
-            Thread.Sleep(25000);
+        }
+
+        public void StopThread()
+        {
             stockThread.Abort();
         }
 
@@ -49,13 +53,12 @@ namespace Stock {
         /// </summary>
         public void Activate()
         {
-            Console.WriteLine("Activating Thread");
             for (int i = 0; i < 25; i++)
             {
                 Thread.Sleep(500); // 1/2 second
                 this.ChangeStockValue();
-                i++;
             }
+            this.StopThread();
         }
         
         /// <summary>
@@ -64,7 +67,6 @@ namespace Stock {
         /// </summary>
         public void ChangeStockValue()
         {
-            Console.WriteLine("Changing stock value");
             var rand = new Random();
             this.CurrentValue += rand.Next(-this.MaxChange, this.MaxChange);
             this.NumChanges++;
@@ -75,7 +77,6 @@ namespace Stock {
                 {
                     StockEvent(this, a);
                 }
-                Console.WriteLine(this.StockName + " " + this.CurrentValue + " " + this.NumChanges);
                 this.InitialValue = this.CurrentValue;
             }
         }
