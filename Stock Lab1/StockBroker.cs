@@ -42,6 +42,7 @@ namespace Stock {
         {
             // This method can also possibly handle writing to the file, since its the same information?
             Stock evStock = (Stock)sender;
+            Console.WriteLine(this.BrokerName + " " + evStock.StockName + " " + evStock.CurrentValue + " " + evStock.NumChanges);
             StockNotification data = (StockNotification)e;
             String statement = data.StockName + data.CurrentValue + data.NumChanges;
             Console.WriteLine(statement);
