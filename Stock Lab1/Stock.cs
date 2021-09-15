@@ -71,7 +71,10 @@ namespace Stock {
             if (Math.Abs(this.CurrentValue - this.InitialValue) > this.Threshold)
             {
                 StockNotification a = new StockNotification(this.StockName, this.CurrentValue, this.NumChanges);
-                StockEvent(this, a);
+                if (StockEvent != null)
+                {
+                    StockEvent(this, a);
+                }
                 Console.WriteLine(this.StockName + " " + this.CurrentValue + " " + this.NumChanges);
                 this.InitialValue = this.CurrentValue;
             }
